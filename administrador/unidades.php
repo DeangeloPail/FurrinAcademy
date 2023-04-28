@@ -6,7 +6,7 @@ require_once 'includes/header.php';
       <div class="app-title">
         <div>
           <h1><i class="fa fa-dashboard"></i> Lista de Modulos Educativos</h1>
-          <a href="Uniaccion.php" class="btn btn-primary" style="background-color:#FFC300 ; border-color: black; border-radius: 8px"  >Administrar</a>
+          <a href="./formularios/agregar/unidades.php" class="btn btn-primary" style="background-color:#FFC300 ; border-color: black; border-radius: 8px"  >Administrar</a>
           <a href="#" target="_blank" class="btn btn-primary" style="background-color:#EE493B; border-color: black; border-radius: 8px" >Reporte PDF</a>
           <a href="#" class="btn btn-primary" style="background-color:#11A723  ; border-color: black; border-radius: 8px" >Reporte EXCEL</a>
 
@@ -24,34 +24,16 @@ require_once 'includes/header.php';
           <div class="tile-body">
 
           <?php 
+ob_start();
 
 include('./template/cabecera.php');
+include('./sql/vistas/lista_unidades.php');
 ?>
-<?php 
-    ob_start();
-  //post datos Usuario
-  $UnidadID=(isset($_POST['UnidadID']))?$_POST['UnidadID']:"";
-  $Unidad=(isset($_POST['Unidad']))?$_POST['Unidad']:"";
-  $Curso=(isset($_POST['Curso']))?$_POST['Curso']:"";
-  
-  //post datos aciones-botones
-  $Accion=(isset($_POST['Accion']))?$_POST['Accion']:"";
-  //agrego coneccion con la base de datos
-  include("./config/db.php");
-  //mostrando Usuario
-  $sentenciaSQL=$conexionJF->prepare("SELECT id_unidad,`Unidad`,curso.nombre_curso 
-  FROM `unidad_curso` INNER JOIN curso on curso.codigo_curso=unidad_curso.codigo_curso;");
-  $sentenciaSQL->execute();
-  $ListaunidadCursa=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
-  //mostrando Tipos de Usuario para usar en el select
-  $sentenciaSQL=$conexionJF->prepare("SELECT codigo_curso,nombre_curso FROM `curso`;");
-  $sentenciaSQL->execute();
-  $ListaCurso=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
-
- 
-
-      
-?>
+<script type="text/javascript">
+  function confirmar(){
+    return confirm('¿Estas Seguro?, se eliminaran los datos');
+  }
+</script>
 
 
 <!--mostrar datos-->
@@ -62,22 +44,26 @@ include('./template/cabecera.php');
         <thead>
             <tr>
                 <th>Unidad</th>
-                <th>Unidad</th>
                 <th>Curso</th>
-                       
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach($ListaunidadCursa as $unidadCurso) {?>
+            <?php  while($unidadCurso=mysqli_fetch_assoc($resultado)){?>
             <tr>
               
-                <td><?php echo $unidadCurso['id_unidad']; ?></td>
                 <td><?php echo $unidadCurso['Unidad']; ?></td>
                 <td><?php echo $unidadCurso['nombre_curso']; ?></td>
-                
-
-                
-
+                <th><?php echo "<a type='submit' class='btn btn-outline-dark'
+                                  href='./formularios/editar/unidades.php?id=".$unidadCurso['id_unidad']."'>
+                                  <i class='bi bi-pencil-square'></i>
+                  </a>";?>
+                <?php echo "<a type='submit' class='btn btn-outline-dark'
+                              href='./sql/eliminar/unidades.php?id=".$unidadCurso['id_unidad']."'
+                              onclick='return confirmar()'>
+              <i class='bi bi-trash'></i>
+              </a>";?>  
+                </th>
             </tr>
            <?php }?>
         </tbody>

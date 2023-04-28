@@ -1,5 +1,6 @@
 const formulario = document.getElementById('formulario');
 //constates de inputs para valdiar
+const CodigoCurso = document.getElementById('CodigoCurso');
 const NombreCurso = document.getElementById('NombreCurso');
 const Duracion = document.getElementById('Duracion');
 const AreaCurso = document.getElementById('AreaCurso');
@@ -7,6 +8,7 @@ const TipoCurso = document.getElementById('TipoCurso');
 const CodigoUsuario = document.getElementById('CodigoUsuario');
 
 //alertas de errores de los campos
+const alertaCodigoCurso = document.getElementById('alertaCodigoCurso');
 const alertaNombreCurso = document.getElementById('alertaNombreCurso');
 const alertaDuracion = document.getElementById('alertaDuracion');
 const alertaAreaCurso = document.getElementById('alertaAreaCurso');
@@ -14,8 +16,9 @@ const alertaTipoCurso = document.getElementById('alertaTipoCurso');
 const alertaCodigoUsuario = document.getElementById('alertaCodigoUsuario');
 
 //rangos de campos
+const regCodigoCurso = /^[0-9]{1,19}$/;
 const regNombreCurso = /^[a-zA-ZÀ-ÿ\s]{5,45}$/;
-const regDuracion = /^[0-9]{5,45}$/;
+const regDuracion = /^[0-9]{1,3}$/;
 
 
 const pintarMensajeError = () => {
@@ -44,6 +47,19 @@ formulario.addEventListener("submit", function(evento) {
 function validarFormulario() {
   const errores = [];
 
+
+  // validar Curso
+  if (!regCodigoCurso.test(CodigoCurso.value) || !CodigoCurso.value.trim()) {
+    CodigoCurso.classList.add('is-invalid');
+    //validar si existe un otro CodigoCurso
+    
+    errores.push(alertaCodigoCurso.textContent = "Los nombres deben tener de 5 a 45 caracteres, ni contener caracteres especiales");
+
+  } else {
+    CodigoCurso.classList.remove('is-invalid');
+    CodigoCurso.classList.add('is-valid');
+    alertaCodigoCurso.classList.add('d-none');
+  }
   // validar NombreCurso
   if (!regNombreCurso.test(NombreCurso.value) || !NombreCurso.value.trim()) {
     NombreCurso.classList.add('is-invalid');

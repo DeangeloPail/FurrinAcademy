@@ -37,7 +37,7 @@ include('./sql/vistas/usuarios.php')
 
 <div class="col-md-12"   >
     
-    <table class="table table-bordered" id="example">
+    <table class="table table-bordered" id="tabla2">
         <thead>
             <tr>
                 <th>Nombre de Usuario</th>
@@ -70,33 +70,16 @@ include('./sql/vistas/usuarios.php')
     </table>
 
 </div>
-   <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
-   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-   <script>
-      $(document).ready(function () {
-      $('#example').DataTable();
-      });
-   </script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.css" rel="stylesheet"/>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/datatables.min.js"></script>
+<script src="./js/datatable.js"></script>
 
 </body>
-
-
-
-
-          
-
-
-
-       
-              
-
-
-
-
-
-   
-
- 
 
 <?php
 require_once 'includes/footer.php'
