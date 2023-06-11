@@ -11,7 +11,7 @@
 
 	$filas=mysqli_fetch_array($result);
 
-    if($filas == true){
+    if($filas == true && $filas['status_usuario']==1){
 
         // validar rol
         if($filas['tipodeusuario']== 1) {

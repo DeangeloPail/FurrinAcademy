@@ -33,6 +33,36 @@ formulario.addEventListener("submit", function(evento) {
     }
 });
 
+//mostrar select 1
+Curso.addEventListener('change', (event) => {
+  var selectedOption = event.target.value;
+  var seleccion_curso = (selectedOption);
+  var formData = new FormData();
+ 
+
+  formData.append('curso', seleccion_curso);
+
+  fetch('../../sql/vistas/unidades.php', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+
+      // Limpiar el contenido de los párrafos
+      UnidadID.value = '';
+
+      data.forEach(metodo => {
+        let codigoCurso =`${metodo.codigo_curso}`;
+        UnidadID.value += (codigoCurso);
+      });
+
+    })
+    .catch(error => console.error(error));
+});
 function validarFormulario() {
   const errores = [];
 

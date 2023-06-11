@@ -52,7 +52,7 @@ ob_start();
 
 include('../../template/cabecera.php');
 include('../../sql/vistas/cursos.php');
-    $id=$_GET['id'];
+$id=$_GET['id'];
   $sql="SELECT * FROM curso  where codigo_curso='".$id."'";
   $resultadoCursos=mysqli_query($conexion,$sql);
 
@@ -60,24 +60,24 @@ include('../../sql/vistas/cursos.php');
   $codigo=$filaCurso["codigo_curso"];
   $nombre=$filaCurso["nombre_curso"];
   $duracion=$filaCurso["Duracion"];
-
 ?>
-<form id="formulario" action="../../sql/modificar/cursos.php" method="POST" enctype="multipart/form-data" class="row  mx-3 g-3 needs-validation" novalidate >
+<form id="formulario" action="../../sql/agregar/cursos.php" method="POST" enctype="multipart/form-data" class="row  mx-3 g-3 needs-validation" novalidate >
         <div class = "form-group">
           <input type="hidden" class="form-control mt-3" 
-          value="<?php echo $codigo?>" name="CodigoCurso" id="CodigoCurso"  placeholder="Codigo Curso">
+          name="CodigoCurso" id="CodigoCurso"  value="<?php echo $codigo; ?>" placeholder="Codigo Curso">
+          <div class="invalid-feedback"id="alertaCodigoCurso"></div>
         </div>
         <div class = "form-group">
             <label for="NombreCurso">Nombre Curso:</label>
             <input type="text" class="form-control mt-3" 
-            value="<?php echo $nombre?>" name="NombreCurso" id="NombreCurso"  placeholder="Nombre Curso">
+            name="NombreCurso" id="NombreCurso" value="<?php echo $nombre; ?>" placeholder="Nombre Curso">
             <div class="invalid-feedback"id="alertaNombreCurso"></div>
         </div>
 
         <div class="form-group">
             <label for="Duracion" class="form-label">Duracion</label>
             <div class="input-group has-validation">
-            <input type="text" class="form-control" id="Duracion" value="<?php echo $duracion?>" name="Duracion" 
+            <input type="text" class="form-control"value="<?php echo $duracion; ?>" id="Duracion" name="Duracion" 
             aria-describedby="inputGroupPrepend" placeholder="Duracion">
             <span class="input-group-text">Horas</span>
             <div class="invalid-feedback"id="alertaDuracion"></div>
@@ -119,7 +119,7 @@ include('../../sql/vistas/cursos.php');
         </div>
 
     <div class="d-grid gap-2 d-md-block ">
-        <button type="submit" class="btn btn-success px-5">editar</button>
+        <button type="submit" class="btn btn-success px-5">Editar</button>
         <a type='button' class='btn btn-secondary px-5'href='../../lista_cursos.php'>
             <i class="bi bi-x-circle"></i>   Cancelar
         </a>

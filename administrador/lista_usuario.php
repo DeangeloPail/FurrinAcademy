@@ -43,6 +43,7 @@ include('./sql/vistas/usuarios.php')
                 <th>Nombre de Usuario</th>
                 <th>Constrasena</th>
                 <th>Tipo Usuario</th>
+                <th>Estatus</th>
                 <th>Acción</th>
 
                 
@@ -54,15 +55,29 @@ include('./sql/vistas/usuarios.php')
                 <td><?php echo $Usuario['nombre_usuario']; ?></td>
                 <td><?php echo $Usuario['contrasena']; ?></td>
                 <td><?php echo $Usuario['Tipodeusuario']; ?></td>
+                <?php if($Usuario['status_usuario']==1){?>
+                <td><p class="btn btn-success">Activo</p></td>
+                <?php }else{?>
+                <td><p class="btn btn-danger">Inactivo</p></td>
+                <?php }?>
                 <th><?php echo "<a type='submit' class='btn btn-outline-dark'
                                   href='./formularios/editar/usuarios.php?id=".$Usuario['codigo_usuario']."'>
                                   <i class='bi bi-pencil-square'></i>
                   </a>";?>
-                <?php echo "<a type='submit' class='btn btn-outline-dark'
-                              href='./sql/eliminar/usuario.php?id=".$Usuario['codigo_usuario']."'
+                <?php if($Usuario['status_usuario']==1){ 
+                          echo "<a type='submit' class='btn btn-outline-dark'
+                              href='./sql/eliminar/usuario.php?id=".$Usuario['codigo_usuario']."&estatus=1'
                               onclick='return confirmar()'>
-              <i class='bi bi-trash'></i>
-              </a>";?>  
+                              <i class='bi bi-person-slash'></i>
+                          </a>";
+                      }else{
+                        echo "<a type='submit' class='btn btn-outline-dark'
+                              href='./sql/eliminar/usuario.php?id=".$Usuario['codigo_usuario']."&estatus=2'
+                              onclick='return confirmar()'>
+                              <i class='bi bi-person-check'></i>
+                          </a>";
+                      }  
+                ?>  
                 </th>
             </tr>
            <?php }?>

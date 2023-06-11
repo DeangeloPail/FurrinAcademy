@@ -23,11 +23,11 @@ require_once 'includes/header.php';
           <div class="tile-body">
           <div class="tile-body">
 
-          <?php 
-ob_start();
+<?php 
+  ob_start();
 
-include('./template/cabecera.php');
-include('./sql/vistas/lista_unidades.php');
+  include('./template/cabecera.php');
+  include('./sql/vistas/lista_unidades.php');
 ?>
 <script type="text/javascript">
   function confirmar(){

@@ -6,7 +6,7 @@ require_once 'includes/header.php';
       <div class="app-title">
         <div>
           <h1><i class="fa fa-dashboard"></i> Lista de Contenidos Pedagogicos</h1>
-          <a href="Conteaccion.php" class="btn btn-primary" style="background-color:#FFC300 ; border-color: black; border-radius: 8px"  >Administrar</a>
+          <a href="./formularios/agregar/contenidos.php" class="btn btn-primary" style="background-color:#FFC300 ; border-color: black; border-radius: 8px"  >Administrar</a>
           <a href="reportes/repor_usu.php" target="_blank" class="btn btn-primary" style="background-color:#EE493B; border-color: black; border-radius: 8px" >Reporte PDF</a>
           <a href="Useraccion.php" class="btn btn-primary" style="background-color:#11A723  ; border-color: black; border-radius: 8px" >Reporte EXCEL</a>
 
@@ -22,35 +22,17 @@ require_once 'includes/header.php';
           <div class="tile">
           <div class="tile-body">
           <div class="tile-body">
-          <?php 
-
-include('./template/cabecera.php');
-?>
 <?php 
-    ob_start();
-  //post datos Usuario
-  $ContenidoID=(isset($_POST['ContenidoID']))?$_POST['ContenidoID']:"";
-  $Contenido=(isset($_POST['Contenido']))?$_POST['Contenido']:"";
-  $unidad_curso=(isset($_POST['unidad_curso']))?$_POST['unidad_curso']:"";
-  
-  //post datos aciones-botones
-  $Accion=(isset($_POST['Accion']))?$_POST['Accion']:"";
-  //agrego coneccion con la base de datos
-  include("./config/db.php");
-  //mostrando Usuario
-  $sentenciaSQL=$conexionJF->prepare("SELECT `id_contenido`,`Contenido`,unidad_curso.Unidad,curso.nombre_curso 
-  FROM `contenidos_unidad_curso` INNER JOIN unidad_curso ON contenidos_unidad_curso.unidad_curso=unidad_curso.id_unidad 
-  INNER JOIN curso ON unidad_curso.codigo_curso=curso.codigo_curso;");
-  $sentenciaSQL->execute();
-  $ListaContenido=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
-  //mostrando Tipos de Usuario para usar en el select
-  $sentenciaSQL=$conexionJF->prepare("SELECT `id_unidad`,`Unidad` FROM`unidad_curso`;");
-  $sentenciaSQL->execute();
-  $Listaunidad_curso=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+  ob_start();
 
-
-      
+  include('./template/cabecera.php');
+  include('./sql/vistas/lista_contenidos.php');
 ?>
+<script type="text/javascript">
+  function confirmar(){
+    return confirm('¿Estas Seguro?, se eliminaran los datos');
+  }
+</script>
 
 
 <!--mostrar datos-->
@@ -60,22 +42,30 @@ include('./template/cabecera.php');
     <table class="table table-bordered" id="example">
         <thead>
             <tr>
-                <th>Codigo</th>
                 <th>Contenido</th>
                 <th>Unidad</th>
                 <th>Curso</th>
+                <th>Acciones</th>
 
                 
             </tr>
         </thead>
         <tbody>
-            <?php foreach($ListaContenido as $contenidido) {?>
+            <?php  while($contenidido=mysqli_fetch_assoc($resultado)){?>
             <tr>
-                <td><?php echo $contenidido['id_contenido']; ?></td>
                 <td><?php echo $contenidido['Contenido']; ?></td>
                 <td><?php echo $contenidido['Unidad']; ?></td>
                 <td><?php echo $contenidido['nombre_curso']; ?></td>
-   
+                <th><?php echo "<a type='submit' class='btn btn-outline-dark'
+                                  href='./formularios/editar/contenidos.php?id=".$contenidido['id_contenido']."'>
+                                  <i class='bi bi-pencil-square'></i>
+                  </a>";?>
+                  <?php echo "<a type='submit' class='btn btn-outline-dark'
+                                href='./sql/eliminar/contenidos.php?id=".$contenidido['id_contenido']."'
+                                onclick='return confirmar()'>
+                <i class='bi bi-trash'></i>
+                </a>";?>  
+                </th>
 
             </tr>
            <?php }?>

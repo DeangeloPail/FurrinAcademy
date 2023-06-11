@@ -14,7 +14,7 @@ const alertaDireccion = document.getElementById('alertaDireccion');
 const alertaTelefono = document.getElementById('alertaTelefono');
 const alertaCodigoUsuario = document.getElementById('alertaCodigoUsuario');
 //rangos de campos
-const regCodigoEstudia = /^\d{5,10}$/;
+const regCodigoEstudia = /^\d{1,10}$/;
 const regNombreEstudia = /^[a-zA-ZÀ-ÿ\s]{5,45}$/;
 const regApellidoEstudia = /^[a-zA-ZÀ-ÿ\s]{5,45}$/;
 const regDireccion = /^.{5,25}$/;

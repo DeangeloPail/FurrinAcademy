@@ -10,7 +10,7 @@ const alertaNombreProfesor = document.getElementById('alertaNombreProfesor');
 const alertaDireccion = document.getElementById('alertaDireccion');
 const alertaCodigoUsuario = document.getElementById('alertaCodigoUsuario');
 //rangos de campos
-const regProfesorID = /^\d{5,10}$/;
+const regProfesorID = /^\d{1,10}$/;
 const regNombreProfesor = /^[a-zA-ZÀ-ÿ\s]{4,45}$/;
 const regDireccion = /^.{5,50}$/;
 const pintarMensajeError = () => {

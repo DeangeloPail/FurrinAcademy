@@ -75,6 +75,7 @@ include('./template/cabecera.php');
   $sentenciaSQL=$conexionJF->prepare("SELECT codigo_curso,nombre_curso FROM `curso`;");
   $sentenciaSQL->execute();
   $ListaCurso=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
+  
   $sentenciaSQL=$conexionJF->prepare("SELECT `Codigo_estudiante`,`Nombre_estudiante`,`Apellido_estudiante` FROM `estudiante`");
   $sentenciaSQL->execute();
   $ListaEstudiantes=$sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);

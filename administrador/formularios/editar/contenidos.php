@@ -51,44 +51,47 @@
 ob_start();
 
 include('../../template/cabecera.php');
-include('../../sql/vistas/cursos.php');
-if (isset($_GET['Message'])) {
-  echo $_GET['Message'];
-   }
-?>
-<form id="formulario" action="../../sql/agregar/unidades.php" method="POST" enctype="multipart/form-data" class="row  mx-3 g-3 needs-validation" novalidate >
-  <div class = "form-group">
-    <label for="UnidadID">Unidad ID:</label>
-    <input type="text" class="form-control mt-3" 
-           name="UnidadID" required="" id="UnidadID"  placeholder="Unidad ID">
-    <div class="invalid-feedback" id="alertaUnidadID"></div>
-  </div>
-        
-  <div class = "form-group">
-      <label for="Unidad">Nombre de la Unidad:</label>
-      <input type="text" class="form-control mt-3" 
-             name="Unidad" required="" id="Unidad"  placeholder="Nombre de la Unidad">
-      <div class="invalid-feedback" id="alertaUnidad"></div>
-  </div>
-   
-  <div class = "form-group">
-      <label for="Curso" >Curso:</label>
-      <select class="form-control my-3" name="Curso" required="" id="Curso">
-          <option selected disabled>Seleccione Curso...</option>
-          <?php while($cursos=mysqli_fetch_assoc($ListaCurso)){?>
-              <option value="<?php echo $cursos['codigo_curso'];?>"><?php echo $cursos['nombre_curso'];?></option>
-          <?php }?>
-      </select>
-      <div class="invalid-feedback"id="alertaCurso"></div>
-  </div>
+include('../../sql/vistas/unidades.php');
+$id=$_GET['id'];
+  $sql="SELECT * FROM contenidos_unidad_curso  where id_contenido='".$id."'";
+  $resultadoCursos=mysqli_query($conexion,$sql);
 
+  $filaContenido=mysqli_fetch_assoc($resultadoCursos);
+  $codigo=$filaContenido["id_contenido"];
+  $contenido=$filaContenido["Contenido"];
+?>
+<form id="formulario" action="../../sql/modificar/contenidos.php" method="POST" enctype="multipart/form-data" class="row  mx-3 g-3 needs-validation" novalidate >
+        <div class = "form-group">
+            <input type="hidden" class="form-control mt-3" value="<?php echo $codigo?>"
+            name="ContenidoID" id="ContenidoID"  placeholder="ID">
+            <div class="invalid-feedback"id="alertaContenidoID"></div>
+          </div>
+        
+        <div class = "form-group">
+            <label for="Contenido">Contenido:</label>
+            <input type="text" class="form-control mt-3" value="<?php echo $contenido?>"
+            name="Contenido" id="Contenido"  placeholder="Contenido">
+            <div class="invalid-feedback"id="alertaContenido"></div>
+          </div>
+
+        
+        <div class = "form-group">
+            <label for="unidad_curso" >unidad:</label>
+            <select class="form-control my-3" name="unidad_curso" id="unidad_curso">
+                <option selected disabled>Seleccione unidad...</option>
+                <?php while($unidades=mysqli_fetch_assoc($resultado)) {?>
+                    <option value="<?php echo $unidades['id_unidad'];?>"><?php echo $unidades['Unidad'];?></option>
+                <?php }?>
+            </select>
+              <div class="invalid-feedback"id="alertaunidad_curso"></div>
+          </div>
     <div class="d-grid gap-2 d-md-block ">
         <button type="submit" class="btn btn-success px-5">Agregar</button>
-        <a type='button' class='btn btn-secondary px-5'href='../../unidades.php'>
+        <a type='button' class='btn btn-secondary px-5'href='../../contenidos.php'>
             <i class="bi bi-x-circle"></i>   Cancelar
         </a>
     </div>
 </form>
-<script src="../../js/unidades_agregar.js"></script>
+<script src="../../js/contenido.js"></script>
           
 <?php include('../../template/pie.php');?>
