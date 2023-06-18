@@ -3,7 +3,7 @@ ob_start();
 
 include("../../config/database.php");
 
-$sqlCurso="SELECT codigo_curso,nombre_curso FROM `curso`";
+$sqlCurso="SELECT codigo_curso,nombre_curso FROM `curso` WHERE`statu_curso` = 1";
 $resultCurso=mysqli_query($conexion,$sqlCurso);
 
 $sqlEstudiante="SELECT `Codigo_estudiante`,`Nombre_estudiante`,`Apellido_estudiante` FROM `estudiante`";

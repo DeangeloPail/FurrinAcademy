@@ -16,9 +16,9 @@ if (isset($_POST['NombreCurso'])) {
       header("location: ../../formularios/agregar/cursos.php?Message=".urlencode($mensaje));
     } else {
         $sql="INSERT INTO `curso` (`codigo_curso`, `nombre_curso`, 
-        `Duracion`, `area_curso`, `tipo_curso`, `codigo_usuario`) 
+        `Duracion`, `area_curso`, `tipo_curso`, `codigo_usuario`, `statu_curso`) 
         VALUES ('$CodigoCurso','$NombreCurso', '$Duracion', '$AreaCurso', 
-        '$TipoCurso', '$CodigoUsuario')";
+        '$TipoCurso', '$CodigoUsuario', '1')";
         $resultado=mysqli_query($conexion,$sql);
 
         if ($resultado){

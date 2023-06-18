@@ -12,7 +12,7 @@
 	$filas=mysqli_fetch_array($result);
 
     if($filas == true && $filas['status_usuario']==1){
-
+        $idUsuario=$filas['codigo_usuario'];
         // validar rol
         if($filas['tipodeusuario']== 1) {
             $_SESSION['usuarioAdministrador']="ok";
@@ -27,6 +27,7 @@
         if($filas['tipodeusuario']== 3){
             $_SESSION['usuarioEstudiante']="ok";
             $_SESSION['nombreUsuario']=$usuario;
+            $_SESSION['idEstudiante']=$idUsuario;
             header("location: ../../Estudiante/index.php");
         }
     }else{

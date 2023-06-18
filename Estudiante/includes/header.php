@@ -8,6 +8,7 @@ if(!isset($_SESSION['usuarioEstudiante'])){
 }else{
   if($_SESSION['usuarioEstudiante']="ok"){
       $nombreUsuario=$_SESSION["nombreUsuario"];
+      $idEstudiante=$_SESSION["idEstudiante"];
   }
 }
 

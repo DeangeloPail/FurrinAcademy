@@ -24,7 +24,7 @@ if (isset($_POST['CodigoEstudia'])) {
         if ($resultado){
             header('location: ../../lista_estu.php');
         }else{
-            header('location: ../../formularios/agregar/estudiante.php');
+            header('location: ../../formularios/agregar/estudiantes.php');
         }
     }
 }
